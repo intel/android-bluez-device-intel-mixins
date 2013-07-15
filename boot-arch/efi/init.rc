@@ -1,0 +1,8 @@
+
+#pstore, clean it up
+service pstore-clean /system/bin/pstore-clean
+    user root
+    group system
+    class main
+    oneshot
+
