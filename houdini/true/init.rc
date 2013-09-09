@@ -3,9 +3,10 @@ service enable_houdini /system/bin/enable_houdini
     class main
     oneshot
 
-on early-fs
-    # Houdini requires /system/lib/arm.  Must do this after "on init"
-    # because the core init.rc sets this variable too.
-    export LD_LIBRARY_PATH /vendor/lib:/system/lib:/system/lib/arm:/system/lib/egl
+on early-init
+    # Houdini requires /system/lib/arm.  Must do this before "on init"
+    # because the core init.rc sets this variable too; the first setting
+    # is what is used.
+    export LD_LIBRARY_PATH /vendor/lib:/system/lib:/system/lib/arm
 
 
