@@ -1,2 +1,0 @@
-TARGET_ARCH := x86
-
