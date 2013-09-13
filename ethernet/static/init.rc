@@ -1,0 +1,17 @@
+service utilitynet-eth0 /system/bin/sh /system/etc/init.utilitynet.sh eth0
+    class core
+    disabled
+    oneshot
+
+service utilitynet-eth1 /system/bin/sh /system/etc/init.utilitynet.sh eth1
+    class core
+    disabled
+    oneshot
+
+on device-added-/dev/eth0
+    start utilitynet-eth0
+
+on device-added-/dev/eth1
+    start utilitynet-eth1
+
+
