@@ -39,6 +39,11 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_FLASH_BLOCK_SIZE := 512
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 
+# Secure boot boot image signing
+TARGET_BOOT_IMAGE_KEY := device/intel/common/testkeys/bios/DB.key
+TARGET_BOOT_IMAGE_SIGN_CMD := openssl dgst -sha256 -sign $(TARGET_BOOT_IMAGE_KEY)
+BOARD_MKBOOTIMG_ARGS := --signsize 256  --signexec "$(TARGET_BOOT_IMAGE_SIGN_CMD)"
+
 $(call dist-for-goals,droid,$(PRODUCT_OUT)/live.img)
 $(call dist-for-goals,droid,$(PRODUCT_OUT)/legacy.iso)
 
