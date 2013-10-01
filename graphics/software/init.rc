@@ -5,3 +5,9 @@ on post-fs
 
     setprop ro.kernel.qemu.gles 0
     setprop ro.kernel.qemu 1
+
+service setconsole /system/bin/logwrapper /system/bin/setconsole -g
+    class main
+    user root
+    oneshot
+
