@@ -24,6 +24,10 @@ PRODUCT_PACKAGES += libdrm_intel
 PRODUCT_PACKAGES += libvpwrapper_vpg
 PRODUCT_PACKAGES += libs3cjpeg_vpg
 
+# 3D dependencies
+PRODUCT_PACKAGES += libva
+PRODUCT_PACKAGES += libva-android
+
 ifneq ($(PANEL_IGNORE_LID),)
     PRODUCT_PROPERTY_OVERRIDES += init.panel_ignore_lid=$(PANEL_IGNORE_LID)
 endif
