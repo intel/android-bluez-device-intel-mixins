@@ -1,0 +1,3 @@
+service ufo-init /system/bin/sh /system/etc/init.ufo.sh
+    class core
+    oneshot

@@ -32,4 +32,5 @@ ifneq ($(PANEL_IGNORE_LID),)
     PRODUCT_PROPERTY_OVERRIDES += init.panel_ignore_lid=$(PANEL_IGNORE_LID)
 endif
 
+PRODUCT_COPY_FILES += device/intel/mixins/graphics/ufo/init.ufo.sh:system/etc/init.ufo.sh
 
