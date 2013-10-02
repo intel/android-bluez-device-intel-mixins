@@ -14,3 +14,7 @@ ADDITIONAL_BUILD_PROPERTIES += \
 		debug.rs.default-CPU-driver=1
 
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+
+# By default recovery minui expects RGBA framebuffer
+TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
+
