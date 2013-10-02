@@ -16,19 +16,12 @@ TARGET_IAGO_PLUGINS += \
 	bootable/iago/plugins/gummiboot \
 	bootable/iago/plugins/syslinux
 
-TARGET_EFI_APPS += \
-	$(PRODUCT_OUT)/efi/gummiboot.efi \
-	$(PRODUCT_OUT)/efi/shim.efi
-
-ifneq ($(TARGET_USE_MOKMANAGER),false)
-TARGET_EFI_APPS += $(PRODUCT_OUT)/efi/MokManager.efi
-endif
-
-# Add these to the OTA target-files-package
-INSTALLED_RADIOIMAGE_TARGET += $(TARGET_EFI_APPS)
-
 # Extra libraries needed to be rolled into recovery updater
 TARGET_RECOVERY_UPDATER_EXTRA_LIBS += libgpt_static
+
+# If using userfastboot, we want this plugin to update the
+# EFI System Partition
+TARGET_USERFASTBOOT_LIBS += libufb_esp
 
 # Stupid EFI BIOS update requires this
 RECOVERY_MIN_BATT_CAP := 30
@@ -43,7 +36,4 @@ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 TARGET_BOOT_IMAGE_KEY := device/intel/common/testkeys/bios/DB.key
 TARGET_BOOT_IMAGE_SIGN_CMD := openssl dgst -sha256 -sign $(TARGET_BOOT_IMAGE_KEY)
 BOARD_MKBOOTIMG_ARGS := --signsize 256  --signexec "$(TARGET_BOOT_IMAGE_SIGN_CMD)"
-
-$(call dist-for-goals,droid,$(PRODUCT_OUT)/live.img)
-$(call dist-for-goals,droid,$(PRODUCT_OUT)/legacy.iso)
 
