@@ -1,3 +1,5 @@
 
 PRODUCT_PACKAGES += \
-	power.$(TARGET_PRODUCT) \
+	power.haswell \
+
+
