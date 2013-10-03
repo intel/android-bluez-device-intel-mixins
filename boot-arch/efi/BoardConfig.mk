@@ -16,15 +16,21 @@ TARGET_IAGO_PLUGINS += \
 	bootable/iago/plugins/gummiboot \
 	bootable/iago/plugins/syslinux
 
+# Adds edify commands swap_entries and copy_partition for robust
+# update of the EFI system partition
+TARGET_RECOVERY_UPDATER_LIBS += libupdater_esp
+
 # Extra libraries needed to be rolled into recovery updater
+# libgpt_static is needed by libupdater_esp
 TARGET_RECOVERY_UPDATER_EXTRA_LIBS += libgpt_static
+
+# Recovery UI library. Compiled with or without SD Card support based
+# on RECOVERY_HAVE_SD_CARD which is specified in the 'storage' mixin
+TARGET_RECOVERY_UI_LIB := libbigcore_recovery_ui
 
 # If using userfastboot, we want this plugin to update the
 # EFI System Partition
 TARGET_USERFASTBOOT_LIBS += libufb_esp
-
-# Stupid EFI BIOS update requires this
-RECOVERY_MIN_BATT_CAP := 30
 
 # We need to use standard EXT4 images, can't use sparse as the installer
 # needs to loopback mount it. It's in a squashfs container anyway.
