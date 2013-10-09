@@ -3,4 +3,3 @@
 # would power down the devices. Enable access to system account
 # so libpower can do its job
 /sys/devices/*/*/*/*/input*/event* uevent 0644 system system
-

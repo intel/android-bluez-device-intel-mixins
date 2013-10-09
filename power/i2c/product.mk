@@ -1,0 +1,4 @@
+INTEL_POWER_HAL_I2C := true
+
+PRODUCT_PACKAGES += \
+        power.$(TARGET_PRODUCT)
