@@ -1,0 +1,21 @@
+# Android fstab file.
+# <src>                   <mnt_point> <type>  <mnt_flags and options>  <fs_mgr_flags>
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+
+# Note: we use by-name symlinks here. You need to set androidboot.disk and
+# androidboot.sdcard in your kernel command line so that the right symlinks
+# in init.common.rc and init.recovery.common.rc are created. If you use the
+# Iago installer & Gummiboot this is already done for you.
+
+/dev/block/by-name/system       /system         ext4    ro                                         wait
+/dev/block/by-name/factory      /factory        ext4    ro                                         wait
+/dev/block/by-name/cache        /cache          ext4    noatime,nosuid,nodev,errors=panic          wait,check
+/dev/block/by-name/data         /data           ext4    noatime,nosuid,nodev,errors=panic          wait,check,encryptable=/dev/block/by-name/metadata
+/dev/block/by-name/boot         /boot           emmc    defaults                                   defaults
+/dev/block/by-name/recovery     /recovery       emmc    defaults                                   defaults
+/dev/block/by-name/misc         /misc           emmc    defaults                                   defaults
+/dev/block/by-name/bootloader   /bootloader     vfat    defaults                                   recoveryonly
+/dev/block/by-name/bootloader2  /bootloader2    vfat    defaults                                   recoveryonly
+/dev/block/by-name/fastboot     /fastboot       emmc    defaults                                   defaults
+

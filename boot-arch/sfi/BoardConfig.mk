@@ -4,6 +4,8 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_FLASH_BLOCK_SIZE := 512
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
+TARGET_RECOVERY_FSTAB := device/intel/mixins/boot-arch/sfi/fstab
+
 TARGET_MAKE_NO_DEFAULT_BOOTIMAGE ?= true
 
 MKBOOTIMGOSIP := vendor/intel/support/mkbootimg-osip
