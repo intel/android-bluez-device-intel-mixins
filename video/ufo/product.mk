@@ -12,16 +12,15 @@ PRODUCT_PACKAGES += \
 
 # omx components
 # TODO: disabled libOMXVideoDecoderVP8 as it didn't build for haswell
+# TODO: disabled libOMXVideoEncodeAVC since it does not build
 PRODUCT_PACKAGES += \
     libwrs_omxil_core_pvwrapped \
     libOMXVideoDecoderAVC \
     libOMXVideoDecoderH263 \
     libOMXVideoDecoderMPEG4 \
     libOMXVideoDecoderWMV \
-#   libOMXVideoDecoderVP8 \
     libOMXVideoEncoderH263 \
-    libOMXVideoEncoderMPEG4 \
-    libOMXVideoEncoderAVC
+    libOMXVideoEncoderMPEG4
 
 # libmix
 PRODUCT_PACKAGES += \
