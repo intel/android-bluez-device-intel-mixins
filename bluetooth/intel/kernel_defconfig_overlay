@@ -1,0 +1,7 @@
+# Do not use kernel BT-driver
+# CONFIG_BT is not set
+# CONFIG_BT_RFCOMM is not set
+# CONFIG_BT_BNEP is not set
+# CONFIG_BT_HIDP is not set
+# CONFIG_BT_HCIBTUSB is not set
+# CONFIG_BT_ATH3K is not set
