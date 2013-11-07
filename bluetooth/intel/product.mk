@@ -5,7 +5,9 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/intel/mixins/bluetooth/int
 BLUETOOTH_HCI_USE_USB := true
 
 # Firmware patch-file
-PRODUCT_COPY_FILES += vendor/intel/hardware/bluetooth/fw/370710018002030d00.seq:system/etc/firmware/370710018002030d00.seq
+PRODUCT_COPY_FILES += \
+	vendor/intel/hardware/bluetooth/fw/370710018002030d00.seq:system/etc/firmware/370710018002030d00.seq \
+	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml
 
 # Disable kernel BT-drivers
 TARGET_KERNEL_CONFIG_OVERRIDES += device/intel/mixins/bluetooth/intel/kernel_defconfig_overlay
