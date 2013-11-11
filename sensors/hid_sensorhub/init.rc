@@ -1,0 +1,77 @@
+on boot
+    insmod /system/lib/modules/industrialio.ko
+    insmod /system/lib/modules/kfifo_buf.ko
+    insmod /system/lib/modules/industrialio-triggered-buffer.ko
+    insmod /system/lib/modules/hid-sensor-hub.ko
+    insmod /system/lib/modules/hid-sensor-iio-common.ko
+    insmod /system/lib/modules/hid-sensor-trigger.ko
+    insmod /system/lib/modules/hid-sensor-accel-3d.ko
+    insmod /system/lib/modules/hid-sensor-gyro-3d.ko
+    insmod /system/lib/modules/hid-sensor-als.ko
+    insmod /system/lib/modules/hid-sensor-magn-3d.ko
+
+on device-removed-/dev/iio:device0
+    setprop iio.device0.removed 1
+
+on device-removed-/dev/iio:device1
+    setprop iio.device1.removed 1
+
+on device-removed-/dev/iio:device2
+    setprop iio.device2.removed 1
+
+on device-removed-/dev/iio:device3
+    setprop iio.device3.removed 1
+
+on device-removed-/dev/iio:device4
+    setprop iio.device4.removed 1
+
+on device-removed-/dev/iio:device5
+    setprop iio.device5.removed 1
+
+on device-added-/dev/iio:device0
+    setprop iio.device0.removed 0
+    chown system system /dev/iio:device0
+    chown system system /sys/bus/iio/devices/iio:device0/*
+    chown system system /sys/bus/iio/devices/iio:device0/buffer/*
+    chown system system /sys/bus/iio/devices/iio:device0/scan_elements/*
+    chown system system /sys/bus/iio/devices/iio:device0/trigger/*
+
+on device-added-/dev/iio:device1
+    setprop iio.device1.removed 0
+    chown system system /dev/iio:device1
+    chown system system /sys/bus/iio/devices/iio:device1/*
+    chown system system /sys/bus/iio/devices/iio:device1/buffer/*
+    chown system system /sys/bus/iio/devices/iio:device1/scan_elements/*
+    chown system system /sys/bus/iio/devices/iio:device1/trigger/*
+
+on device-added-/dev/iio:device2
+    setprop iio.device2.removed 0
+    chown system system /dev/iio:device2
+    chown system system /sys/bus/iio/devices/iio:device2/*
+    chown system system /sys/bus/iio/devices/iio:device2/buffer/*
+    chown system system /sys/bus/iio/devices/iio:device2/scan_elements/*
+    chown system system /sys/bus/iio/devices/iio:device2/trigger/*
+
+on device-added-/dev/iio:device3
+    setprop iio.device3.removed 0
+    chown system system /dev/iio:device3
+    chown system system /sys/bus/iio/devices/iio:device3/*
+    chown system system /sys/bus/iio/devices/iio:device3/buffer/*
+    chown system system /sys/bus/iio/devices/iio:device3/scan_elements/*
+    chown system system /sys/bus/iio/devices/iio:device3/trigger/*
+
+on device-added-/dev/iio:device4
+    setprop iio.device4.removed 0
+    chown system system /dev/iio:device4
+    chown system system /sys/bus/iio/devices/iio:device4/*
+    chown system system /sys/bus/iio/devices/iio:device4/buffer/*
+    chown system system /sys/bus/iio/devices/iio:device4/scan_elements/*
+    chown system system /sys/bus/iio/devices/iio:device4/trigger/*
+
+on device-added-/dev/iio:device5
+    setprop iio.device5.removed 0
+    chown system system /dev/iio:device5
+    chown system system /sys/bus/iio/devices/iio:device5/*
+    chown system system /sys/bus/iio/devices/iio:device5/buffer/*
+    chown system system /sys/bus/iio/devices/iio:device5/scan_elements/*
+    chown system system /sys/bus/iio/devices/iio:device5/trigger/*
