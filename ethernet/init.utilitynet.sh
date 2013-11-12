@@ -15,7 +15,7 @@ fi
 addr=`getprop net.utilitynet.ip`
 netmask=`getprop net.utilitynet.netmask`
 
-if [ -z "$addr" ]; then
+if [ -z "$addr" -o -f /sdcard/use_dhcp ]; then
     /system/bin/dhcpcd -bd $utility_iface
 else
     ifconfig $utility_iface $addr netmask $netmask up
