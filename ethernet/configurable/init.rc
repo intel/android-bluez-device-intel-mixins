@@ -1,0 +1,13 @@
+on post-fs
+    setprop ro.intel.ethernet true
+
+service dhcpcd_eth0 /system/bin/dhcpcd -d -BK -f /system/etc/dhcpcd/android.conf
+    class main
+    group root system net_admin net_raw
+    disabled
+    oneshot
+
+service iprenew_eth0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
