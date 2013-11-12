@@ -1,0 +1,2 @@
+# Disable USB Video Class (UVC) support.
+CONFIG_USB_VIDEO_CLASS=n

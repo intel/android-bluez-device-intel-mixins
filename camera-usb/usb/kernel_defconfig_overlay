@@ -1,0 +1,2 @@
+# Enable USB Video Class (UVC) driver.
+CONFIG_USB_VIDEO_CLASS=m
