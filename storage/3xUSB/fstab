@@ -1,0 +1,3 @@
+*/block/sdb                             auto             vfat    defaults                                   voldmanaged=usbdisk:auto
+*/block/sdc                             auto             vfat    defaults                                   voldmanaged=usbdisk2:auto
+*/block/sdd                             auto             vfat    defaults                                   voldmanaged=usbdisk3:auto
