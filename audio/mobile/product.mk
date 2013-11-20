@@ -1,6 +1,9 @@
 #
 # Audio HAL
 #
+
+TARGET_KERNEL_CONFIG_OVERRIDES += device/intel/mixins/audio/mobile/kernel_defconfig_overlay
+
 # hardware HAL
 PRODUCT_PACKAGES += \
     audio_hal_configurable \
