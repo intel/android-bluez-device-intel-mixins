@@ -22,3 +22,5 @@ USE_INTEL_MDP := true
 MFX_IPP := p8
 USE_INTEL_IPP := true
 
+#Overlay
+DEVICE_PACKAGE_OVERLAYS += device/intel/mixins/audio/mobile/overlay

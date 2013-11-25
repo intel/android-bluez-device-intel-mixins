@@ -1,8 +1,4 @@
 <resources>
-    <!-- When true use the linux /dev/input/event subsystem to detect the switch changes
-         on the headphone/microphone jack. When false use the older uevent framework. -->
-    <bool name="config_useDevInputEventForAudioJack">true</bool>
-
     <!-- List of regexpressions, matched against the device devpath, to detect
          dynamically inserted audio devices, such as a USB headset.
          If the device doesn't want to support these, this should be empty.
