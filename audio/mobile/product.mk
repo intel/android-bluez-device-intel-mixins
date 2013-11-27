@@ -4,7 +4,7 @@
 
 TARGET_KERNEL_CONFIG_OVERRIDES += device/intel/mixins/audio/mobile/kernel_defconfig_overlay
 
-# hardware HAL
+# Hardware HAL
 PRODUCT_PACKAGES += \
     audio_hal_configurable \
     libaudioresample \
@@ -12,14 +12,14 @@ PRODUCT_PACKAGES += \
     vibrator.$(PRODUCT_NAME) \
     audio.usb.default
 
-# tinyalsa tools
+# Tinyalsa tools
 PRODUCT_PACKAGES += \
     tinyplay \
     tinycap \
     tinymix \
     tinypcminfo
 
-# parameter-framework files
+# Parameter-framework files
 PRODUCT_PACKAGES += \
     parameter-framework.audio.bayleybay \
     libparameter \
@@ -32,12 +32,12 @@ PRODUCT_PACKAGES += \
     libproperty-subsystem \
     parameter
 
-#hdmi audio HAL
+# HDMI audio HAL
 PRODUCT_PACKAGES += \
    audio.hdmi.$(PRODUCT_NAME)
 
 
-#NXP audio effects
+# NXP audio effects
 PRODUCT_PACKAGES += \
     libbundlewrapper.so \
     libreverbwrapper.so \
@@ -45,7 +45,23 @@ PRODUCT_PACKAGES += \
     LvmDefaultControlParams.xml \
     LvmSessionConfigurationMinus1.xml
 
-# remote-process for parameter-framework tuning interface
+# Remote submix audio
+PRODUCT_PACKAGES += \
+       audio.r_submix.default
+
+# Specific management of audio_effects.conf
+PRODUCT_COPY_FILES += \
+    device/intel/mixins/audio/mobile/audio_effects.conf:system/vendor/etc/audio_effects.conf
+
+# Audio policy file
+PRODUCT_COPY_FILES += \
+    device/intel/mixins/audio/mobile/audio_policy.conf:system/etc/audio_policy.conf
+
+# Audio asound file
+PRODUCT_COPY_FILES += \
+    device/intel/mixins/audio/mobile/asound.conf:system/etc/asound.conf
+
+# Remote-process for parameter-framework tuning interface
 ifneq (, $(findstring "$(TARGET_BUILD_VARIANT)", "eng" "userdebug"))
 PRODUCT_PACKAGES += \
     libremote-processor \
