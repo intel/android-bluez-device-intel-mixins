@@ -1,0 +1,12 @@
+diff --git a/ethernet/static/product.mk b/ethernet/static/product.mk
+index 57aecdf..026b5a7 100644
+--- a/ethernet/static/product.mk
++++ b/ethernet/static/product.mk
+@@ -3,6 +3,6 @@ PRODUCT_COPY_FILES += device/intel/mixins/ethernet/init.utilitynet.sh:system/etc
+ PRODUCT_PROPERTY_OVERRIDES += \
+ 	adb.server.tcp.port=5555 \
+         persist.sys.utility_iface=eth0 \
+-        net.utilitynet.ip=10.102.209.213 \
++        net.utilitynet.ip=10.102.209.214 \
+         net.utilitynet.netmask=255.255.255.0
+ 
