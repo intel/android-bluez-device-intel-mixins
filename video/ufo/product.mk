@@ -31,6 +31,10 @@ PRODUCT_PACKAGES += \
     libmixvbp_h264secure \
     libintelmetadatabuffer
 
+# system/lib
+PRODUCT_PACKAGES += \
+    libI420colorconvert
+
 # libva
 # TODO: disabled as they didn't build for haswell
 #PRODUCT_PACKAGES += \
