@@ -1,0 +1,2 @@
+on device-added-/dev/dri
+   insmod system/lib/modules/vxd392.ko
