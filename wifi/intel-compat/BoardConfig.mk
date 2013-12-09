@@ -15,8 +15,3 @@ INTEL_IWL_COMPAT_INSTALL_DIR := updates
 INTEL_IWL_PRODUCT_OUT := $(OUT_DIR)/target/product/$(TARGET_PRODUCT)
 KERNEL_OUT_DIR := $(INTEL_IWL_PRODUCT_OUT)/obj/kernel
 INTEL_IWL_COMPAT_INSTALL_PATH := $(ANDROID_BUILD_TOP)/$(INTEL_IWL_PRODUCT_OUT)/obj/kernelmods
-
-# Special kernel configuration for intel-compat mixin
-# TODO: find a way to use overlays for the default config, this approach is hard
-# to maintain because the files must be kept in sync manually
-TARGET_KERNEL_CONFIG := $(TARGET_KERNEL_ARCH)_bigcore_android_defconfig_wifi_compat
