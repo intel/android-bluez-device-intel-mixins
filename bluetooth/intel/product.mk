@@ -6,8 +6,10 @@ BLUETOOTH_HCI_USE_USB := true
 
 # Firmware patch-file
 PRODUCT_COPY_FILES += \
-	vendor/intel/hardware/bluetooth/fw/370710018002030d2a.seq:system/etc/firmware/370710018002030d00.seq \
-	vendor/intel/hardware/bluetooth/fw/370710018002030d2a.seq:system/etc/firmware/370710018002030d2a.seq \
+        vendor/intel/hardware/bluetooth/fw/370710010002030d36.seq:system/etc/firmware/370710010002030d00.seq \
+        vendor/intel/hardware/bluetooth/fw/370710010002030d36.seq:system/etc/firmware/370710010002030d36.seq \
+	vendor/intel/hardware/bluetooth/fw/370710018002030d36.seq:system/etc/firmware/370710018002030d00.seq \
+	vendor/intel/hardware/bluetooth/fw/370710018002030d36.seq:system/etc/firmware/370710018002030d36.seq \
 	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml
 
 # Disable kernel BT-drivers
