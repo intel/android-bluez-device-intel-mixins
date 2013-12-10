@@ -7,6 +7,9 @@
          dynamically inserted audio devices, such as a USB headset.
          If the device doesn't want to support these, this should be empty.
     -->
+
+    <add-resource type="array" name="config_pcm_regexs"/>
+
     <string-array translatable="false" name="config_pcm_regexs">
         <item>"/devices/.*/usb\\d/.*/sound/card\\d/pcmC\\dD\\dp"</item>
     </string-array>

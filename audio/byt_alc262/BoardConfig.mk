@@ -23,4 +23,4 @@ MFX_IPP := p8
 USE_INTEL_IPP := true
 
 #Overlay
-DEVICE_PACKAGE_OVERLAYS += device/intel/mixins/audio/mobile/overlay
+DEVICE_PACKAGE_OVERLAYS += device/intel/mixins/audio/byt_alc262/overlay
