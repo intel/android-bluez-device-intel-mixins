@@ -10,7 +10,7 @@ PRODUCT_PACKAGES += \
     libaudioresample \
     audio.a2dp.default \
     vibrator.$(PRODUCT_NAME) \
-    audio.usb.default
+    audio.usb.$(PRODUCT_NAME)
 
 # Tinyalsa tools
 PRODUCT_PACKAGES += \
