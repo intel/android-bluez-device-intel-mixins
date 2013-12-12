@@ -1,6 +1,7 @@
 /devices/pci0000:00/0000:00:14.0/usb2/2-4/2-4:1.0                             auto             vfat    defaults                                   voldmanaged=sdcard1:auto
-/devices/pci0000:00/0000:00:14.0/usb1/1-1/1-1:1.0                             auto             vfat    defaults                                   voldmanaged=usbdisk2:auto
-/devices/pci0000:00/0000:00:14.0/usb1/1-2/1-2:1.0                             auto             vfat    defaults                                   voldmanaged=usbdisk3:auto
+*/block/sdb                                                                   auto             vfat    defaults                                   voldmanaged=usbdisk2:auto
+*/block/sdc                                                                   auto             vfat    defaults                                   voldmanaged=usbdisk3:auto
+*/block/sdd                                                                   auto             vfat    defaults                                   voldmanaged=usbdisk4:auto
 
 
 
