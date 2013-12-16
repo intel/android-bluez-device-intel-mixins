@@ -1,0 +1,10 @@
+on boot
+	# enable submix path for intel miracast
+	setprop widi.audio.module submix
+
+	# intel extended video mode for external display. Disabled for HSW
+	setprop widi.media.extmode.enable false
+
+	# Disable HDCP for miracast
+	setprop widi.hdcp.enable false
+
