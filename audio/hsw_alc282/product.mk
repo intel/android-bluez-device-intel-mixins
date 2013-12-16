@@ -15,11 +15,15 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	tinymix \
 	tinyplay \
-	tinycap \
+	tinycap
 
 # Audio support
 PRODUCT_PACKAGES += \
 	audio.primary.$(TARGET_PRODUCT) \
 	audio.a2dp.default \
 	audio.hsp.default
+
+# Remote submix device required for miracast
+PRODUCT_PACKAGES += \
+	audio.r_submix.default
 
