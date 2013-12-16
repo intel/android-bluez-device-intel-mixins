@@ -1,0 +1,10 @@
+# needed by VXD driver
+CONFIG_DRM_TTM=y
+CONFIG_DRM_VXD_BYT=y
+
+
+
+
+
+
+

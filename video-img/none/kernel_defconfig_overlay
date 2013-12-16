@@ -1,0 +1,4 @@
+# Disable kernel drivers for VXD392.
+CONFIG_DRM_TTM=n
+CONFIG_DRM_VXD_BYT=n
+
