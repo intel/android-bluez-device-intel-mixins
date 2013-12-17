@@ -1,6 +1,10 @@
 PRODUCT_PACKAGES += \
 	camera.$(TARGET_PRODUCT) \
 
+PRODUCT_COPY_FILES += \
+        frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+        frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml
+
 # Note that /dev/video0 is duplicated for both front and back cameras.
 # This is because the GMS Camera app will not appear in the launcher
 # if there is no back-facing camera, yet the Face Unlock feature (part
