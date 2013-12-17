@@ -1,0 +1,5 @@
+service thermal-daemon /system/bin/thermal-daemon
+    user root
+    group system
+    class main
+    oneshot
