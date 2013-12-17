@@ -11,3 +11,6 @@ $(call inherit-product-if-exists, vendor/intel/hardware/PRIVATE/wlan/iwl-firmwar
 
 PRODUCT_PROPERTY_OVERRIDES += \
         wifi.interface=wlan0
+
+PRODUCT_PACKAGES += IWLWIFI
+
