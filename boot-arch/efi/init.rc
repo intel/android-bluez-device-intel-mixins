@@ -1,8 +1,11 @@
+on post-fs-data
+    mkdir /data/kpanic 0770 system system
+    mkdir /data/kpanic/pstore 0770 system system
 
 #pstore, clean it up
 service pstore-clean /system/bin/pstore-clean
     user root
     group system
-    class main
+    class late_start
     oneshot
 
