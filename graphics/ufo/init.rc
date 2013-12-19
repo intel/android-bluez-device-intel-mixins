@@ -1,3 +1,7 @@
 service ufo-init /system/bin/sh /system/etc/init.ufo.sh
     class core
     oneshot
+
+on post-fs-data
+    restart ufo-init
+
