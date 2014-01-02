@@ -1,0 +1,16 @@
+# CONFIG_AGP is not set
+# CONFIG_AGP_INTEL is not set
+# CONFIG_VGA_SWITCHEROO is not set
+# CONFIG_DRM is not set
+# CONFIG_NO_GPU_AUTHENTICATION is not set
+# CONFIG_DRM_I915 is not set
+# CONFIG_DRM_I915_KMS is not set
+CONFIG_FB=y
+# CONFIG_BACKLIGHT_GENERIC is not set
+# CONFIG_FONTS is not set
+# CONFIG_FONT_8x8 is not set
+# CONFIG_FONT_8x16 is not set
+# CONFIG_SND_HDA_I915 is not set
+CONFIG_TMPFS=y
+CONFIG_TMPFS_POSIX_ACL=y
+CONFIG_TMPFS_XATTR=y
