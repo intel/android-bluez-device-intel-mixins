@@ -1,5 +1,5 @@
 AUDIO_HAL := audio_pc
-DEVICE_PACKAGE_OVERLAYS += $(call get-mixin-basedir,audio)/overlay
+DEVICE_PACKAGE_OVERLAYS += $(hsw_alc282_path)/overlay
 
 #MDP
 USE_INTEL_MDP = true

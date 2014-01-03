@@ -2,7 +2,9 @@
 # Audio HAL
 #
 
-TARGET_KERNEL_CONFIG_OVERRIDES += $(call get-mixin-basedir,audio)/kernel_defconfig_overlay
+byt_alc262_path := device/intel/mixins/audio/byt_alc262
+
+TARGET_KERNEL_CONFIG_OVERRIDES += $(byt_alc262_path)/kernel_defconfig_overlay
 
 # Hardware HAL
 PRODUCT_PACKAGES += \
@@ -51,15 +53,15 @@ PRODUCT_PACKAGES += \
 
 # Specific management of audio_effects.conf
 PRODUCT_COPY_FILES += \
-    $(call get-mixin-basedir,audio)/audio_effects.conf:system/vendor/etc/audio_effects.conf
+    $(byt_alc262_path)/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
 # Audio policy file
 PRODUCT_COPY_FILES += \
-    $(call get-mixin-basedir,audio)/audio_policy.conf:system/etc/audio_policy.conf
+    $(byt_alc262_path)/audio_policy.conf:system/etc/audio_policy.conf
 
 # Audio asound file
 PRODUCT_COPY_FILES += \
-    $(call get-mixin-basedir,audio)/asound.conf:system/etc/asound.conf
+    $(byt_alc262_path)/asound.conf:system/etc/asound.conf
 
 # Remote-process for parameter-framework tuning interface
 ifneq (, $(findstring "$(TARGET_BUILD_VARIANT)", "eng" "userdebug"))
@@ -74,6 +76,7 @@ PRODUCT_PACKAGES += \
     SpeechRecorder
 endif
 
+# FIXME why this this commented out?
 # AudioToolBox (for eng builds)
 #ifneq (, $(findstring "$(TARGET_BUILD_VARIANT)", "eng"))
 # PRODUCT_PACKAGES += \
