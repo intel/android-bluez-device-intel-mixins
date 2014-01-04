@@ -1,0 +1,1 @@
+# Disable crash report

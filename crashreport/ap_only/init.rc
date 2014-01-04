@@ -1,0 +1,32 @@
+on init
+    mkdir /mnt/logs 0770 system log
+    symlink /mnt/logs /logs
+#    setrlimit 4 -1 -1
+
+on post-fs
+    mkdir /data/tombstones 0755 system system
+    mkdir /data/system/    0755 system system
+    mkdir /data/system/dropbox 0700 system system
+    mkdir /data/logs 0770 system log
+
+    chmod 444 /sys/class/dmi/id/product_uuid
+
+    mount ext4 /data/logs/ /mnt/logs rw bind
+
+on post-fs-data
+    mkdir /logs/stats 0775 system system
+    mkdir /logs/aplogs 0775 system log
+    mkdir /logs/core 0775 system log
+    mkdir /logs/modemcrash 0775 system log
+
+on charger
+    mkdir /logs/stats 0775 system system
+    mkdir /logs/aplogs 0775 system log
+    mkdir /logs/core 0775 system log
+    mkdir /logs/modemcrash 0775 system log
+
+# crash and log services
+service crashlogd /system/bin/crashlogd
+    class late_start
+    user system
+    group system log radio
