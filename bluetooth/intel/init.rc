@@ -4,7 +4,7 @@ on post-fs-data
 
 on boot
     chown root bluetooth /dev/rfkill
-    chmod 0664 /dev/rfkill
+    chmod 0660 /dev/rfkill
 
 service hciattach /system/xbin/hciconfig hci0 up
     user root
