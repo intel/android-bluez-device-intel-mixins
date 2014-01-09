@@ -21,3 +21,7 @@ ADDITIONAL_BUILD_PROPERTIES += \
 
 ADDITIONAL_DEFAULT_PROPERTIES += ro.ufo.use_coreu=1
 
+ifneq ($(filter haswell,$(TARGET_BOARD_PLATFORM)),)
+ADDITIONAL_DEFAULT_PROPERTIES += ro.ufo.use_curd=1
+endif
+
