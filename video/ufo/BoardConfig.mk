@@ -19,7 +19,5 @@ BUILD_WITH_FULL_STAGEFRIGHT := true
 ADDITIONAL_BUILD_PROPERTIES += \
 		debug.rs.default-CPU-driver=1
 
-ifneq ($(filter baytrail,$(TARGET_BOARD_PLATFORM)),)
 ADDITIONAL_DEFAULT_PROPERTIES += ro.ufo.use_coreu=1
-endif
 
