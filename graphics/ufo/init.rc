@@ -2,6 +2,19 @@ service ufo-init /system/bin/sh /system/etc/init.ufo.sh
     class core
     oneshot
 
+service coreu /system/bin/coreu
+    class main
+    disabled
+
+service curd /system/bin/curd
+    class main
+    disabled
+
+on property:ro.ufo.use_coreu=1
+    start coreu
+
+on property:ro.ufo.use_curd=1
+    start curd
+
 on post-fs-data
     restart ufo-init
-

@@ -13,6 +13,12 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 ADDITIONAL_BUILD_PROPERTIES += \
 		debug.rs.default-CPU-driver=1
 
+ADDITIONAL_DEFAULT_PROPERTIES += ro.ufo.use_coreu=1
+
+ifneq ($(filter haswell,$(TARGET_BOARD_PLATFORM)),)
+ADDITIONAL_DEFAULT_PROPERTIES += ro.ufo.use_curd=1
+endif
+
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 # By default recovery minui expects RGBA framebuffer

@@ -19,9 +19,3 @@ BUILD_WITH_FULL_STAGEFRIGHT := true
 ADDITIONAL_BUILD_PROPERTIES += \
 		debug.rs.default-CPU-driver=1
 
-ADDITIONAL_DEFAULT_PROPERTIES += ro.ufo.use_coreu=1
-
-ifneq ($(filter haswell,$(TARGET_BOARD_PLATFORM)),)
-ADDITIONAL_DEFAULT_PROPERTIES += ro.ufo.use_curd=1
-endif
-
