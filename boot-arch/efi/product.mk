@@ -1,4 +1,4 @@
-PRODUCT_PACKAGES += pstore_clean \
+PRODUCT_PACKAGES += pstore-clean \
                     charger \
                     charger_res_images
 
