@@ -16,5 +16,6 @@ PRODUCT_PACKAGES += \
 # Audio support
 PRODUCT_PACKAGES += \
 	audio.primary.$(TARGET_PRODUCT) \
-	audio.a2dp.default
+	audio.a2dp.default \
+	audio.hsp.default
 
