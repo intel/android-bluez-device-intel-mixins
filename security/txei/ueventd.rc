@@ -1,0 +1,2 @@
+#for mei sec devices
+/dev/mei              0660 intel_sec intel_sec
