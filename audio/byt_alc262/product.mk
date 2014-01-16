@@ -11,6 +11,7 @@ PRODUCT_PACKAGES += \
     audio_hal_configurable \
     libaudioresample \
     audio.a2dp.default \
+    audio.hsp.default \
     vibrator.$(PRODUCT_NAME) \
     audio.usb.$(PRODUCT_NAME)
 
