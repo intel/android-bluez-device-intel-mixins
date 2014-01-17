@@ -17,7 +17,7 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 # Using Mesa
 BOARD_USE_MESA := true
-BOARD_EGL_CFG := $(call get-mixin-basedir,graphics)/egl.cfg
+BOARD_EGL_CFG := device/intel/mixins/graphics/mesa/egl.cfg
 BOARD_GPU_DRIVERS := i965
 USE_OPENGL_RENDERER := true
 
