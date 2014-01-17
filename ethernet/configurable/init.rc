@@ -11,3 +11,11 @@ service iprenew_eth0 /system/bin/dhcpcd -n
     class main
     disabled
     oneshot
+
+service utilitynet-eth0 /system/bin/sh /system/etc/init.utilitynet.sh eth0
+    class core
+    disabled
+    oneshot
+
+on device-added-/dev/eth0
+    start utilitynet-eth0
