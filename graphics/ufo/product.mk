@@ -8,6 +8,7 @@ ifneq ($(BOARD_HAVE_GEN_GFX_SRC),true) # ufo packages when prebuilts are used
     # system/bin
     PRODUCT_PACKAGES += coreu
     PRODUCT_PACKAGES += mediainfo
+    PRODUCT_PACKAGES += curd
 
     # system/lib/hw
     PRODUCT_PACKAGES += gralloc.ufo
@@ -21,6 +22,7 @@ ifneq ($(BOARD_HAVE_GEN_GFX_SRC),true) # ufo packages when prebuilts are used
 
     # system/lib
     PRODUCT_PACKAGES += i965_drv_video
+    PRODUCT_PACKAGES += libivp
     PRODUCT_PACKAGES += igfxcmjit32
     PRODUCT_PACKAGES += igfxcmrt32
     PRODUCT_PACKAGES += libdrm
