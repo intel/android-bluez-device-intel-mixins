@@ -1,0 +1,32 @@
+This is mixin configuration for BlueZ Bluetooth stack which may replace Broadcom's Bluedroid stack.
+
+Steps to get started:
+
+1. You need several extra packages (BlueZ, glib and sbc) which might be downloaded with local_manifest.xml
+
+$ cd .repo
+$ mkdir local_manifests
+$ create local_manifest.xml
+$ repo sync
+
+2. Use the mixin with inherit-mixin. Following patch to device/intel/haswell enables BlueZ for Dell XPS12:
+
+...
+diff --git a/hsb/hsb.mk b/hsb/hsb.mk
+index f47efd8..0a12710 100644
+--- a/hsb/hsb.mk
++++ b/hsb/hsb.mk
+@@ -30,7 +30,7 @@ $(call inherit-mixin, video, ufo)
+ $(call inherit-mixin, wifi, intel-compat)
+ $(call inherit-mixin, liblights, intel)
+ $(call inherit-mixin, navigationbar, true)
+-$(call inherit-mixin, bluetooth, intel)
++$(call inherit-mixin, bluetooth, bluez)
+ $(call inherit-mixin, camera-usb, uvc)
+ $(call inherit-mixin, security, mei)
+ $(call inherit-mixin, sensors, hid_sensorhub)
+...
+
+Note that patched bionic is needed for the time being untill we get latest updates from the bionic HEAD.
+
+Then build and continue as before, everything should be working.
