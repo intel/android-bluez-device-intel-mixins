@@ -1,6 +1,5 @@
 # We use '=' since $(TARGET_ARCH_VARIANT) isn't set until later
 BOARD_KERNEL_CMDLINE += vga=current i915.modeset=1 drm.vblankoffdelay=1
-BOARD_EGL_CFG = vendor/intel/hardware/PRIVATE/ufo/egl.cfg
 USE_OPENGL_RENDERER := true
 USE_INTEL_UFO_DRIVER := true
 
