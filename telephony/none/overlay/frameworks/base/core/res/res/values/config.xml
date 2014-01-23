@@ -1,0 +1,6 @@
+<resources>
+
+    <!-- Indicate device is not voice capable -->
+    <bool name="config_voice_capable">false</bool>
+
+</resources>
