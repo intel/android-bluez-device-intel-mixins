@@ -1,3 +1,6 @@
+on init
+    setprop service.adb.tcp.port 5555
+
 on post-fs
     setprop ro.intel.ethernet true
 
@@ -19,3 +22,12 @@ service utilitynet-eth0 /system/bin/sh /system/etc/init.utilitynet.sh eth0
 
 on device-added-/dev/eth0
     start utilitynet-eth0
+
+# Adb over Network
+on property:service.adb.tcp.port=5555
+    stop adbd
+    start adbd
+
+on property:service.adb.tcp.port=-1
+    stop adbd
+    start adbd
