@@ -10,7 +10,8 @@ PRODUCT_COPY_FILES += \
         vendor/intel/hardware/bluetooth/fw/370710010002030d36.seq:system/etc/firmware/370710010002030d36.seq \
 	vendor/intel/hardware/bluetooth/fw/370710018002030d36.seq:system/etc/firmware/370710018002030d00.seq \
 	vendor/intel/hardware/bluetooth/fw/370710018002030d36.seq:system/etc/firmware/370710018002030d36.seq \
-	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml
+	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
+        frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
 
 # Disable kernel BT-drivers
 TARGET_KERNEL_CONFIG_OVERRIDES += device/intel/mixins/bluetooth/intel/kernel_defconfig_overlay
