@@ -1,0 +1,9 @@
+[base]
+partitions += swap
+
+[partition.swap]
+len = SWAPSIZE
+type = swap
+flags = noauto hidden
+mode = skip
+

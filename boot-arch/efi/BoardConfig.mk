@@ -3,7 +3,24 @@ ifndef TARGET_USE_MOKMANAGER
     $(error "Please define TARGET_USE_MOKMANAGER to specify whether the MokManager tool should be installed")
 endif
 
-TARGET_IAGO_INI ?= device/intel/mixins/boot-arch/efi/iago.ini
+ifeq ($(TARGET_STAGE_USERFASTBOOT),)
+    # SW Update and provisioning images should put Droidboot on the device
+    # for users to use via 'adb reboot fastboot'.
+    # Policy here is to not stage it in production builds
+    ifneq ($(TARGET_BUILD_VARIANT),user)
+        TARGET_STAGE_USERFASTBOOT := true
+    else
+        TARGET_STAGE_USERFASTBOOT := false
+    endif
+endif
+
+ifneq ($(TARGET_NO_MIXIN_IAGO_INI),true)
+    TARGET_IAGO_INI += device/intel/mixins/boot-arch/efi/iago.ini
+    ifneq ($(TARGET_STAGE_USERFASTBOOT),true)
+        TARGET_IAGO_INI += device/intel/mixins/boot-arch/efi/iago.nofastboot.ini
+    endif
+endif
+
 BOARD_SYSTEMIMAGE_PARTITION_SIZE ?= 1610612736
 
 ifndef TARGET_KERNEL_ARCH
@@ -47,20 +64,6 @@ TARGET_RECOVERY_FSTAB ?= device/intel/mixins/boot-arch/efi/fstab
 
 TARGET_USE_USERFASTBOOT := true
 
-ifeq ($(TARGET_STAGE_USERFASTBOOT),)
-    # SW Update and provisioning images should put Droidboot on the device
-    # for users to use via 'adb reboot fastboot'.
-    # Policy here is to not stage it in production builds
-    ifneq ($(TARGET_BUILD_VARIANT),user)
-        TARGET_STAGE_USERFASTBOOT := true
-    else
-        TARGET_STAGE_USERFASTBOOT := false
-    endif
-endif
-
 USERFASTBOOT_SCRATCH_SIZE ?= 1500
 
-ifeq ($(TARGET_STAGE_USERFASTBOOT),)
-    TARGET_IAGO_INI += device/intel/mixins/boot-arch/efi/iago.nofastboot.ini
-endif
 

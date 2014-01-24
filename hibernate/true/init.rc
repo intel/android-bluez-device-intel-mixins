@@ -1,0 +1,8 @@
+on post-fs
+    # Only use swap for hibernation
+    # FIXME this doesn't prevent swapping in all cases
+    write /proc/sys/vm/swappiness 0
+
+    # Tell fs_mgr to enable the swap partition
+    swapon_all /fstab.swap
+

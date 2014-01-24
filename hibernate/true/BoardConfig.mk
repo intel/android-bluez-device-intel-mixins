@@ -1,0 +1,9 @@
+ifneq ($(TARGET_NO_MIXIN_IAGO_INI),true)
+
+# In megabytes
+BOARD_SWAP_PARTITION_SIZE ?= 4096
+
+endif
+
+TARGET_USE_HIBERNATE := true
+
