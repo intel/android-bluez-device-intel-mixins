@@ -38,7 +38,7 @@ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
 # Secure boot boot image signing
 TARGET_BOOT_IMAGE_KEY_PAIR ?= build/target/product/security/testkey
-TARGET_BOOT_IMAGE_SIGN_CMD := vendor/intel/support/getsignature.sh $(TARGET_BOOT_IMAGE_KEY_PAIR).pk8
+TARGET_BOOT_IMAGE_SIGN_CMD := device/intel/mixins/boot-arch/efi/getsignature.sh $(TARGET_BOOT_IMAGE_KEY_PAIR).pk8
 BOARD_MKBOOTIMG_ARGS := --signsize 256  --signexec "$(TARGET_BOOT_IMAGE_SIGN_CMD)"
 
 # New-style fstab which is read by fs_mgr library and used to
