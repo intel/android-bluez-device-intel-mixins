@@ -1,0 +1,2 @@
+on boot
+    insmod /system/lib/modules/uvcvideo.ko
