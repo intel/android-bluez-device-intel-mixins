@@ -37,7 +37,7 @@ BOARD_FLASH_BLOCK_SIZE := 512
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
 # Secure boot boot image signing
-TARGET_BOOT_IMAGE_KEY_PAIR ?= build/target/product/security/testkey
+TARGET_BOOT_IMAGE_KEY_PAIR ?= device/intel/common/testkeys/DB
 TARGET_BOOT_IMAGE_SIGN_CMD := device/intel/mixins/boot-arch/efi/getsignature.sh $(TARGET_BOOT_IMAGE_KEY_PAIR).pk8
 BOARD_MKBOOTIMG_ARGS := --signsize 256  --signexec "$(TARGET_BOOT_IMAGE_SIGN_CMD)"
 
