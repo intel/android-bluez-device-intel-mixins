@@ -60,7 +60,7 @@ BOARD_MKBOOTIMG_ARGS := --signsize 256  --signexec "$(TARGET_BOOT_IMAGE_SIGN_CMD
 
 # New-style fstab which is read by fs_mgr library and used to
 # mount partitions for Android and also the recovery console.
-TARGET_RECOVERY_FSTAB ?= device/intel/mixins/boot-arch/efi/fstab
+TARGET_RECOVERY_FSTAB ?= device/intel/mixins/boot-arch/efi/fstab.recovery
 
 TARGET_USE_USERFASTBOOT := true
 
