@@ -1,0 +1,3 @@
+service sata_power-init /system/bin/sh /system/etc/init.d/sata_power.sh
+    class core
+    oneshot
