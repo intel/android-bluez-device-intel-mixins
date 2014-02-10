@@ -1,2 +1,2 @@
-include vendor/intel/houdini/houdini.mk
+-include vendor/intel/houdini/houdini.mk
 
