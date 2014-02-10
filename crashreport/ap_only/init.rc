@@ -18,12 +18,14 @@ on post-fs-data
     mkdir /logs/aplogs 0775 system log
     mkdir /logs/core 0775 system log
     mkdir /logs/modemcrash 0775 system log
+    mkdir /data/dontpanic 0770 root log
 
 on charger
     mkdir /logs/stats 0775 system system
     mkdir /logs/aplogs 0775 system log
     mkdir /logs/core 0775 system log
     mkdir /logs/modemcrash 0775 system log
+    mkdir /data/dontpanic 0770 root log
 
 # crash and log services
 service crashlogd /system/bin/crashlogd
