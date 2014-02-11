@@ -20,7 +20,7 @@ USE_MEDIASDK := true
 # Enable CIP Codecs
 USE_INTEL_MDP := true
 MFX_IPP := p8
-USE_INTEL_IPP := true
+USE_INTEL_IPP ?= true
 
 #Overlay
 DEVICE_PACKAGE_OVERLAYS += device/intel/mixins/audio/byt_alc262/overlay
