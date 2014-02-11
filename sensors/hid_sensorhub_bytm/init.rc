@@ -16,6 +16,9 @@ on device-removed-/dev/iio:device4
 on device-removed-/dev/iio:device5
     setprop iio.device5.removed 1
 
+on device-removed-/dev/iio:device6
+    setprop iio.device6.removed 1
+
 on device-added-/dev/iio:device0
     setprop iio.device0.removed 0
     chown system system /dev/iio:device0
@@ -63,3 +66,11 @@ on device-added-/dev/iio:device5
     chown system system /sys/bus/iio/devices/iio:device5/buffer/*
     chown system system /sys/bus/iio/devices/iio:device5/scan_elements/*
     chown system system /sys/bus/iio/devices/iio:device5/trigger/*
+
+on device-added-/dev/iio:device6
+    setprop iio.device6.removed 0
+    chown system system /dev/iio:device6
+    chown system system /sys/bus/iio/devices/iio:device6/*
+    chown system system /sys/bus/iio/devices/iio:device6/buffer/*
+    chown system system /sys/bus/iio/devices/iio:device6/scan_elements/*
+    chown system system /sys/bus/iio/devices/iio:device6/trigger/*
