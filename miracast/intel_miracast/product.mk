@@ -10,3 +10,8 @@ PRODUCT_PACKAGES += \
 	WidiInputService \
 	libstragefright_hdcp \
 	libwidirtspsink
+
+#Intel miracast test components
+PRODUCT_PACKAGES += \
+	widiMultitaskingPlayer
+
