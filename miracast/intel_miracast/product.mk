@@ -8,7 +8,7 @@ PRODUCT_PACKAGES += \
 	libwidiuibc \
 	libwidiuibcjni \
 	WidiInputService \
-	libstragefright_hdcp \
+	libstagefright_hdcp \
 	libwidirtspsink
 
 #Intel miracast test components
