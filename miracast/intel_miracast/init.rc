@@ -6,5 +6,5 @@ on boot
 	setprop widi.media.extmode.enable false
 
 	# Disable HDCP for miracast
-	setprop widi.hdcp.enable false
+	setprop widi.hdcp.enable true
 
