@@ -7,3 +7,5 @@ TARGET_KERNEL_CONFIG_OVERRIDES += device/intel/mixins/wifi/intel-upstream/kernel
 
 # include firmware binaries for Wifi adapters
 $(call inherit-product-if-exists, vendor/intel/fw/wifi/iwlwifi/iwlwifi.mk)
+
+PRODUCT_PACKAGES += iwlwifi-7260-7.ucode
