@@ -15,8 +15,6 @@ PRODUCT_PACKAGES += \
         RingsExtended \
         SpriteMethodTest \
         SpriteText \
-        Translate \
         Triangle \
         WebViewDemo \
-        WikiNotes \
-        ReplicaIsland
+        WikiNotes
