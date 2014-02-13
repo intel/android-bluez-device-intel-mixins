@@ -1,0 +1,2 @@
+#Enable mailbox interface.
+CONFIG_INTEL_BAYTRAIL_MBI=m
