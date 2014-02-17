@@ -1,0 +1,3 @@
+# start hdcp daemon
+service hdcpd /system/bin/hdcpd
+    class main
