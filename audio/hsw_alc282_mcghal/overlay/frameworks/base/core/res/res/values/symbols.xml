@@ -1,0 +1,3 @@
+<resources>
+  <java-symbol type="array" name="config_pcm_regexs" />
+</resources>
