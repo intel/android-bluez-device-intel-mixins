@@ -3,6 +3,10 @@
          on the headphone/microphone jack. When false use the older uevent framework. -->
     <bool name="config_useDevInputEventForAudioJack">true</bool>
 
+    <!-- Name of the HDMI switch device to look for detecting HDMI audio presence -->
+    <add-resource type="string" name="config_hdmiName"/>
+    <string translatable="false" name="config_hdmiName">hdmi_c</string>
+
     <!-- List of regexpressions, matched against the device devpath, to detect
          dynamically inserted audio devices, such as a USB headset.
          If the device doesn't want to support these, this should be empty.
