@@ -14,6 +14,11 @@ fi
 
 addr=`getprop net.utilitynet.ip`
 netmask=`getprop net.utilitynet.netmask`
+hwaddr=`getprop net.utilitynet.$utility_iface.hwaddr`
+
+if [ -n "$hwaddr" ]; then
+    netcfg $utility_iface hwaddr $hwaddr
+fi
 
 if [ -z "$addr" -o -f /sdcard/use_dhcp ]; then
     /system/bin/dhcpcd -bd $utility_iface
