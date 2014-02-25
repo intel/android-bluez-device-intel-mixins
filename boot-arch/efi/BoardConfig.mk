@@ -23,8 +23,8 @@ endif
 
 BOARD_SYSTEMIMAGE_PARTITION_SIZE ?= 1610612736
 
-ifndef TARGET_KERNEL_ARCH
-    $(error "Please set TARGET_KERNEL_ARCH so that we know what type of EFI executables to use")
+ifndef TARGET_UEFI_ARCH
+    $(error "Please set TARGET_UEFI_ARCH so that we know what type of EFI executables to use")
 endif
 
 TARGET_USE_IAGO := true
