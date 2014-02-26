@@ -32,3 +32,11 @@ service crashlogd /system/bin/crashlogd
     class late_start
     user system
     group system log radio
+
+service umount-logs /system/bin/sh /system/etc/umount.sh /mnt/logs
+    class main
+    disabled
+
+on property:vold.decrypt=trigger_shutdown_framework
+    start umount-logs
+

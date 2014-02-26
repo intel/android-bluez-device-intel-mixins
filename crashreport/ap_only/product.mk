@@ -11,3 +11,6 @@ CRASH_REPORT_MODEM_SUPPORT :=
 PRODUCT_PACKAGES += \
 	crashlogd \
 	crash_package \
+
+PRODUCT_COPY_FILES += device/intel/mixins/crashreport/umount.sh:system/etc/umount.sh
+
