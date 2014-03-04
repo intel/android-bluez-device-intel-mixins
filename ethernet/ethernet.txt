@@ -1,0 +1,517 @@
+-----------------------------------------------------------------------------
+Ethernet support in Android-IA
+-----------------------------------------------------------------------------
+
+* Default behavior & GUI controls
+* Connecting Ethernet when system_server is down or crashing
+* Connecting Ethernet simultaneously with Wifi
+* Defining a utility interface
+* Running a local DHCP server
+* Test plan
+
+-----------------------------------------------------------------------------
+Default behavior & GUI controls
+-----------------------------------------------------------------------------
+When an Android-IA system boots for the first time, it will attempt
+to bring up the first ethernet interface it finds using DHCP to
+automatically acquire IP settings. This behavior can be changed using the
+Ethernet panel in the standard Android settings app. The settings panel
+shows the current settings as well as allows the user to make various
+changes such as assigning a static IP address, setting the http proxy
+information, etc. The Android network connectivity manager treats
+Ethernet as lower priority than Wifi and will turn Ethernet off when Wifi
+connectivity is established. For details on how to maintain Ethernet
+connectivity while Wifi is in use, refer to the utility interface
+section below.
+
+When an Android-IA system boots into the bootloader (droidboot), it will
+use hardcoded IP address 192.168.42.1. To force droidboot to use DHCP,
+edit the file device/intel/bigcore/init.bigcore-minimal.rc and comment the
+setprop lines for net.utilitynet.* and then rebuilt your droidboot image.
+
+When an Android-IA system boots into the recovery mode, it will use
+hardcoded IP address 192.168.42.1.
+
+-----------------------------------------------------------------------------
+Connecting Ethernet when system_server is down or crashing
+-----------------------------------------------------------------------------
+When doing new platform bringup or graphics driver development, it is
+frequently the case that the Android system_server is permanently down
+or frequently crashing. As such, this prevents the default Ethernet
+support from working because it runs as an Android service inside
+system_server. To work around this, Android-IA provides the idea of a
+"utility interface" or an interface that is managed by init scripts
+instead of by the Android frameworks. See the section "Defining a utility
+interface" below.
+
+-----------------------------------------------------------------------------
+Connecting Ethernet simultaneously with Wifi
+-----------------------------------------------------------------------------
+Android was designed with the intention that devices will only be
+connected to one network at a time. As such, the Android connectivity
+manager will disconnect any network interface when a higher priority
+interface becomes available. This causes problems for users who are trying
+to debug Wifi connectivity using adb connected through Ethernet. To work
+around this, Android-IA provides the idea of a "utility interface" or
+an interface that is managed by init scripts instead of by the Android
+frameworks. See the section "Defining a utility interface" below.
+
+-----------------------------------------------------------------------------
+Defining a utility interface
+-----------------------------------------------------------------------------
+A utility interface is an Ethernet interface that is managed by simple
+init scripts and is not exposed to the Android frameworks or Settings
+app. It can be useful in a number of cases where Ethernet availability
+is of utmost importance. To define a utility interface, set its name in
+the system property "persist.sys.utility_iface". For example, to do this
+dynamically at runtime, you can use the setprop command:
+
+    adb shell setprop persist.sys.utility_iface eth0
+    adb reboot
+
+Or, if you prefer, you can set the property at build time by adding the
+following to device/intel/bigcore/bigcore.mk:
+
+    PRODUCT_PROPERTY_OVERRIDES += persist.sys.utility_iface=eth0
+
+After booting a device with a defined utility interface, the script
+/system/etc/init.utilitynet.sh will be executed by init to configure
+the interface. By default, it will use DHCP to acquire IP settings. To
+force the utility interface to use a static IP address you will again
+use system properties. At run time:
+
+    adb shell setprop net.utilitynet.ip=192.168.42.1
+    adb shell setprop net.utilitynet.netmask=255.255.255.0
+    adb reboot
+
+Or at build time by editing device/intel/bigcore/bigcore.mk:
+
+    PRODUCT_PROPERTY_OVERRIDES += net.utilitynet.ip=192.168.42.1
+    PRODUCT_PROPERTY_OVERRIDES += net.utilitynet.netmask=255.255.255.0
+
+-----------------------------------------------------------------------------
+Running a local DHCP server
+-----------------------------------------------------------------------------
+Because Android-IA uses DHCP by default to configure its ethernet
+interface, some users may want to run a DHCP server on their local
+private network. Doing so is fairly straightforward:
+    1) Configure your workstation on the private network to have a static
+       IP address. For example, 192.168.42.3
+    2) Install the isc-dhcp-server package on your workstation using
+       your distro's package manager.
+       For example on Ubuntu: sudo apt-get install isc-dhcp-server
+    3) Create /etc/dhcp/dhcpd.conf using the skeleton below. Be sure
+       to replace the MAC address with the address of your actual
+       ethernet interface.
+            local-address 192.168.42.3;
+            ddns-update-style none;
+            option domain-name "example.org";
+            option domain-name-servers ns1.example.org, ns2.example.org;
+            default-lease-time 600;
+            max-lease-time 7200;
+            authoritative;
+            log-facility local7;
+            subnet 192.168.42.0 netmask 255.255.255.0 { }
+
+            host mydevice {
+                hardware ethernet 00:10:60:b1:d7:39;
+                fixed-address 192.168.42.4;
+            }
+    4) Restart dhcpd: sudo /etc/init.d/isc-dhcp-server restart
+
+
+-----------------------------------------------------------------------------
+Test Plan
+-----------------------------------------------------------------------------
+
+Objective:
+Ensure that Ethernet works as expected on Android Devices; basic functionality should be tested, along with different common configurations, interaction with a proxy, and simple negative tests.
+
+List of Tests:
+	Test 0:	Ethernet available
+		Look at the Settings application and that Ethernet is available.
+	Test 1:	Ping DUT test
+		Make sure default Ethernet is working, by using ping.
+	Test 3:	Check Low Level Ethernet
+		Look at the low level Ethernet settings and verify the values
+		in the Settings app are correct.
+	Test 4:	Proxy tests, required to test Internet access
+		Test proxy setting configuration.
+	Test 5:  Test proxy connection
+		Test proxy settings. make sure access on local network and
+		Internet. Using both DHCP and static IP's
+	Test 6:	Test static parameters
+		Test setting static Ethernet parameters and connection.
+	Test 7:	Wifi Interaction
+		Wifi is the main communication interface, When turned on Ethernet
+		should turn off, unless the Utility interface is active.
+	Test 8:	Ethernet Fall back
+		When WiFi is not connected, Ethernet is enabled.
+	Test 9:	Utility interface
+		The Utility interface allows for Ethernet to be connected even
+		while WiFi is connected. The primary purpose is for debugging.
+	Test 10:	Multiple Adapters
+		Test if multiple Ethernet ports work.
+	Test 11: Ethernet cable “broken” and “fixed”
+		Make sure if Ethernet recovers from physical cabling problems.
+	Test 12:	Move Ethernet to different net, Using DHCP
+		This test verifies that software detects and reconfigure it
+		self using DHCP.
+	Test 13:	Test Suspend/Resume
+		Verify the DUT can suspend and resume and continue to have
+		Ethernet still working.
+	Test 14:	Test Ethernet during recovery and iago
+		Verify Ethernet is working during boot stages.
+
+
+This document assumes that the reader knows how to build and install a
+new system on Android and about network tools.
+
+The first thing to do is install a new build on the DUT. After the device
+has booted, plug in the Ethernet cable.  If the DUT does not have a RJ45
+Ethernet port, use a USB Ethernet connector.  It is best to use a
+“Auto-Sense” port. This means you do not have to use a cross over cable
+or a switch.
+
+The recommended setup is for the host computer to have two Ethernet ports,
+The primary is used to access the Internet, the other one is used for
+testing. The testing port would require a static IP (IP 192.168.42.3/24).
+Configure the host accordingly.
+
+The Ethernet tests require a DHCPD server and proxy server. For the DHCP
+use DNSMASQ and set it listen only on the test port. See Appendix A. For
+the proxy, iptables and “privoxy” will need to be configured.
+See Appendix B.  I set the DHCP server to offer only 192.168.42.2/24.
+This way I can check both static and DHCP on the same net.  Also there
+should be a web server running on the host machine.
+
+After the device has booted, look at Settings->Ethernet. Turn on the
+Ethernet if is not already on. The DUT default setting uses DHCP to get its
+address.
+
+Test 0:	Ethernet available
+Look at the Settings application and validate that Ethernet is available.
+	Action:
+		Start “Settings” app
+		Click “Change Ethernet settings”
+	Expected: See status and IP AND checkbox for “Advanced Settings”
+
+	Action:
+		Check “Advanced Settings”
+	Expected:
+		See two button bars “Proxy”  => none and “IP Settings” => DHCP
+
+Test 1:	Ping DUT test
+	Make sure default Ethernet is working, by using ping.
+	Action:
+		From the host ping the 192.168.42.2 (DHCP address)
+	Expected:
+		Ping replies
+	Error:
+		Check cables, check “Advanced Settings” in the Ethernet menu.
+		DHCP should be selected and the address should be 192.168.42.2
+
+Test 2:	DHCP failure
+	Test that Ethernet turns off without DHCP IP address.
+	Setup:
+		Stop DNSMASQ (sudo service dnsmasq stop)
+	Action:
+		In the advanced menu press DHCP to acquire a new IP.
+	Expected:
+		The Ethernet setting will turn off, see Settings app.
+
+Test 3:	Check Low Level Ethernet
+	Look at the low level Ethernet settings and verify the values in the
+	Settings app are correct.
+	Setup:
+		Connect to DUT using adb shell.  This allows for shell access to
+		the DUT
+	1. Action:
+		At shell prompt type,
+			$ ip link
+	Expected:
+		See eth0 in the output
+
+	2. Action:
+		Type,
+			$ ip addr
+	Expected:
+		See an address of 192.168.42.2 with a netmask of 255.255.255.0
+
+	3. Action
+		Type,
+			$ ip route
+	Expected:
+		See
+			default via 192.168.42.3 dev eth0 proto static
+			192.168.42.0/24 dev eth0 proto kernel …...
+			…....
+
+	4. Action
+		Type,
+			$ ip neigh
+	Expected:
+			192.168.42.3 dev eth0 lladdr XX:XX:XX:XX:XX:XX REACHABLE
+			** where XX:XX:XX:XX:XX:XX is the MAC address of the host
+
+Test 4:	Proxy tests, required to test Internet access
+	Test proxy setting configuration.
+	Setup:
+		Execute “Test 0” to see proxy menubar
+	Action:
+		Click button bar “Proxy Settings”
+	Expected:
+		Two more button bars “None” “Manual”
+	Action:
+		Click “Manual” button bar
+	Expected: proxy setting are displayed
+			“Proxy hostname” Proxy port”, “Proxy Bypass”
+		Fill in these settings.
+			“Proxy name”:	192.168.42.3
+			“Proxy Port”:	8118
+			“Proxy Bypass”: 192.168.42.3
+	Action:
+		reboot
+	Expected:
+		Proxy setting remain the same.
+
+Test 5:  Test proxy connection
+	Test proxy settings. make sure access on local network and Internet.
+	Using both DHCP and static IP's
+	Action:
+		Open a browser and connect to local net web server
+		Type the URL,  192.168.42.3
+	Expected:
+		See the web page from the host computer.
+	Action:
+		Type the URL, http://www.slashdot.org
+	Expected:
+		See the web site Slashdot.org
+
+Test 6:	Test static parameters
+	Test setting static Ethernet parameters and connection.
+	Action:
+		Get into the Ethernet configuration.
+		Click “IP Settings” button bar
+	Expected:
+		See two sub button bars popup choose between “static” and “DHCP”
+	Action:
+		Click “static” button bar
+	Expected: The list expands to enter static parameters.
+                “IP Address”, “Gateway”, “Network length”, “DNS1”, “DNS2”
+		Fill in the static information hit save.
+			IP address:	192.168.42.1
+			Gateway:		192.168.42.3
+			Network Length: 24
+			DNS1:			192.168.42.3
+			DNS2:			leave blank
+	Expected:
+			The IP address is now the static IP
+	Action:
+		Repeat Test 1, Test 3, Test4 using the static IP
+		Reboot
+	Expected:
+       Verify static Network configuration is still valid and working
+
+Test 7:	Wifi Interaction
+	Wifi is the main communication interface, When turned on Ethernet
+	should turn off, unless the Utility interface is active.
+	Action:
+		Open Settings and turn on Wifi
+		Connect to Wifi Access Point.
+	Expected:
+		Once the WiFi is connected, Ethernet net turns off
+	Action:
+		Repeat Test 1, Test 3, Test4 using the Wifi
+		Reboot
+	Expected:
+		Verify static Network configuration is still valid and working
+
+Test 8:	Ethernet Fall back
+	When WiFi is not connected, Ethernet is enabled.
+	Action:
+		Turn off Wifi
+    Expected:
+		Ethernet should turn back on with the previous parameters
+
+
+The next section is testing the Utility Interface. This interface allows
+“adb” to remain connected while Wifi is on, as test 7 demonstrated.  The
+interface has to be setup using adb.
+
+Test 9:	Utility interface
+	The Utility interface allows for Ethernet to be connected even while
+	WiFi is connected. The primary purpose is for debugging.
+	Setup:
+		!Wifi should be off now!
+		Test the adb connection. From the host system
+			$ adb shell
+		this should put you in a shell on the DUT. exit out of the shell.
+
+	Action:
+		From host system type
+			adb shell getprop persist.sys.utility_iface
+	Expected:
+		The first time doing this nothing should be returned
+		else clear the property.
+			adb shell setprop persist.sys.utility_iface “”
+		reboot and check again
+
+	Action:
+		Set up the utility interface using DHCP
+			$ adb shell setprop persist.sys.utility_iface eth0
+			$ adb reboot
+   Expected:
+		DUT has working Ethernet,
+		test by ping from host system and connect using adb
+
+	Action:
+		Set up a static utility interface
+		$ adb shell setprop net.utilitynet_ip 192.168.42.1;
+		$ adb shell setprop net.utilitynet_ip 255.255.255.0;
+		$ adb reboot
+	Expected:
+		ping at 192.168.42.1 works
+	Action:
+		Connect to the DUT using adb
+	Expected:
+		See the shell prompt
+	Action:
+		Turn on WiFi and connect to AP.
+			This should turn off Ethernet, but it does not.
+	Expected:
+		The Ethernet and adb stay connected.
+	Action:
+		Exit adb and disconnect from DUT
+		** Not required: reboot
+		Ping DUT
+	Expected:
+		Ping works.
+	Action:
+		Reconnect adb to DUT
+			adb connect 192.168.42.1
+		Connect adb shell
+   Expected:
+		See shell prompt
+	Action:	Test killing system server.
+		adb shell ps | grep system_server
+			Find out PID of system_server
+		adb shell kill PID
+	Expected:
+		add shell stays connected
+
+
+Test 10:	Multiple Adapters
+	Test if multiple Ethernet ports work.
+	Setup:
+	These tests require two Ethernet ports.  The network setup gets
+	difficult here. By just adding another Ethernet port, the lower
+	level should see it.
+	Action:
+		Add new Ethernet port or use a platform with two Ethernet ports
+		$ adb shell ip addr
+	Expected:
+		To see eth1
+	**Note - Not tested
+	Set utility interface to eth1
+	Configure eth1 to static
+	Test adb connectivity
+	Test eth1 connectivity
+	Switch interfaces
+
+Breakage Tests Section
+Test 11: Ethernet cable “broken” and “fixed”
+	Make sure if Ethernet recovers from physical cabling problems.
+	Action:
+		Unplug the Ethernet cable
+	Expected:
+		Ethernet goes down
+	Action:
+		Plug in the Ethernet cable
+	Expected:
+		Ethernet is restored.
+
+Test 12:	Move Ethernet to different net, Using DHCP
+	This test verifies that software detects and reconfigure it self
+	using DHCP.
+	Setup:
+		Have Ethernet connected to host computer
+	Action:
+		Move the Ethernet cable from the host computer's to the switch
+		going in to the host computer Internet connection
+	Expected:
+		The DHCP will get a new IP on the Internet network.
+
+Test 13:	Test Suspend/Resume
+	Verify the DUT can suspend and resume and continue to have Ethernet
+	still working.
+	Action:
+		Bring up the Settings app.  Set Display to 1 minute and exit app.
+		Wait
+	Expected:
+		Android display goes off and the DUT “sleeps”
+		Wait 20 seconds, this give time for everything to suspend.
+	Action:
+		Press power button to wakeup DUT
+		From Host
+			$ adb shell ip addr
+			$ abd shell ping 192.168.42.3
+	Expected:
+		Should see the correct address
+		Should ping the test host
+
+Test 14:	Test Ethernet during recovery and iago
+	Verify Ethernet is working during boot stages.
+	Action:
+		Make sure DUT is off
+		Power on DUT and enter recovery
+		From the host ping DUT
+			$ ping 192.168.42.1
+	Expected:
+		ping works
+	Action:
+		From the host, test to see if adb connects
+			$ adb shell
+	Expected:
+		See the shell prompt from the DUT
+
+	Action:
+		Power cycle the DUT and stop at iago
+		From host ping DUT
+			$ ping 192.168.42.1
+	Expected:
+		ping works
+	Action:
+		From host connect to iago using adb
+			$ adb connect 192.168.42.1
+			$adb shell
+	Expected:
+		See the shell prompt from the DUT
+
+Appendix A:
+Setup dnsmasq dhcpd server, write to /etc/dnsmasq.conf
+
+        # Change to match your host config.
+        interface=eth1
+        # running another nameserver on the same machine.
+        bind-interfaces
+        no-hosts
+        domain=qaotc.intel.com
+        # ** Important, only 192.168.42.2 is the dhcp addr
+        dhcp-range=192.168.42.2,192.168.42.2,255.255.255.0,12h
+
+enable packet forwarding from a shell type
+	$ echo 1 > /proc/sys/net/ipv4/ip_forward
+
+
+Appendix B:
+The default action should work with no external proxy. If there is
+another proxy after this one, a forward statement should be added. In the
+file /etc/privoxy/config add the line
+	forward /  proxyname:port
+
+
+Appendix C:
+Install androidterm Term.apk    Apache License 2
+        This is needed to control the DUT without ethernet
+        http://code.google.com/p/androidterm/
