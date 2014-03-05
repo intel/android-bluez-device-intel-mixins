@@ -12,4 +12,5 @@
          * The device must be provisioned with HDCP keys (for protected content).
     -->
     <bool name="config_enableWifiDisplay">true</bool>
+    <bool name="config_wifiDisplaySupportsProtectedBuffers">true</bool>
 </resources>
