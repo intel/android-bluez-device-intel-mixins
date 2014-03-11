@@ -17,7 +17,6 @@
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
 
-#define BTM_DEF_LOCAL_NAME "hsb"
                             // At present either USB or UART is supported
 #define BLUETOOTH_HCI_USE_USB          TRUE
                             // Bluetooth Low Power Mode is supported on BT4.0
