@@ -2,13 +2,13 @@
 AUDIO_HAL := audio_mobile
 AUDIO_PLATFORM := byt_alc262
 BOARD_USES_TINY_ALSA_AUDIO := true
-BOARD_USES_AUDIO_HAL_CONFIGURABLE := true
+BOARD_USES_AUDIO_HAL_CONFIGURABLE := false
 BOARD_USE_VIBRATOR := true
 BUILD_WITH_ALSA_UTILS := true
 BOARD_USES_GENERIC_AUDIO := false
 
 # enabled to use Intel audio SRC (sample rate conversion)
-USE_INTEL_SRC := true
+USE_INTEL_SRC := false
 
 # enabled to use ALAC
 USE_FEATURE_ALAC := true
@@ -18,9 +18,9 @@ USE_FEATURE_ALAC := true
 # - MFX_IPP: sets IPP library optimization to use
 USE_MEDIASDK := true
 # Enable CIP Codecs
-USE_INTEL_MDP := true
+USE_INTEL_MDP := false
 MFX_IPP := p8
-USE_INTEL_IPP ?= true
+USE_INTEL_IPP ?= false
 
 #Overlay
 DEVICE_PACKAGE_OVERLAYS += device/intel/mixins/audio/byt_alc262/overlay
