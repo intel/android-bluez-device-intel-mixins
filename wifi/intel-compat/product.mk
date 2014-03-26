@@ -7,7 +7,7 @@ PRODUCT_COPY_FILES += \
 TARGET_KERNEL_CONFIG_OVERRIDES += device/intel/mixins/wifi/intel-compat/kernel_defconfig_overlay
 
 # include firmware binaries for Wifi adapters
-$(call inherit-product-if-exists, vendor/intel/hardware/PRIVATE/wlan/iwl-firmware/iwlwifi.mk)
+$(call inherit-product-if-exists, vendor/intel/hardware/wlan/iwl-firmware/iwlwifi.mk)
 
 PRODUCT_PROPERTY_OVERRIDES += \
         wifi.interface=wlan0
