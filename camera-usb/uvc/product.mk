@@ -1,5 +1,6 @@
 PRODUCT_PACKAGES += \
-	camera.$(TARGET_PRODUCT) \
+        camera.$(TARGET_PRODUCT) \
+        libs3cjpeg
 
 PRODUCT_COPY_FILES += \
         frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
