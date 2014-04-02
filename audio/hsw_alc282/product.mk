@@ -6,7 +6,7 @@ PRODUCT_COPY_FILES += \
 	$(hsw_alc282_path)/mixer_paths_Analog_Devices.xml:system/etc/mixer_paths_Analog_Devices.xml \
 	$(hsw_alc282_path)/mixer_paths_unknown.xml:system/etc/mixer_paths_unknown.xml \
 	$(hsw_alc282_path)/mixer_paths_ALC282.xml:system/etc/mixer_paths_ALC282.xml \
-	$(hsw_alc282_path)/mixer_paths_ALC282.xml:system/etc/mixer_paths_ALC668.xml
+	$(hsw_alc282_path)/mixer_paths_ALC668.xml:system/etc/mixer_paths_ALC668.xml
 
 # Audio low latency support
 PRODUCT_COPY_FILES += \
